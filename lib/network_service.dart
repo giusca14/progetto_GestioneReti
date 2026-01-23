@@ -13,6 +13,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sim_card_info/sim_card_info.dart';
 import 'package:sim_card_info/sim_info.dart';
 
+
 class NetworkService {
   final NetworkInfo _networkInfo = NetworkInfo();
 
@@ -271,8 +272,18 @@ class NetworkService {
   ///////////////////////////////////////////////////////////////
   /////////////////MOBILE//////////////////////////////////////
 
+  // richidopermesso per ottenere info sulla sim
+
+  Future<bool> _SimPermission() async {
+    final status = await Permission.phone.request();
+    return status.isGranted;
+  }
+
   Future<String?> getCarrierName() async {
     try{
+      final enabled = await _SimPermission();
+      if(!enabled) return null;
+
       final info = await SimCardInfo().getSimInfo();
       print("SIM INFO: $info");
       if(info == null || info.isEmpty) return null;
@@ -283,7 +294,6 @@ class NetworkService {
       return null;
     }
   }
-
 
   //potenza del segnale Mobile
   Future<int?> getMobileSignal() async {

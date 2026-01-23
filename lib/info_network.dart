@@ -171,13 +171,8 @@ class _InfoNetworkPageState extends State<InfoNetworkPage> {
           if(connectionType == "Mobile")...[
             NetworkInfoTile(
               icon: Icons.sim_card,
-              title: "Operator",
+              title: "Operatore",
               value: carrierName,
-            ),
-            NetworkInfoTile(
-              icon: Icons.language,
-              title: "IPv6 locale",
-              value: ipv6,
             ),
             NetworkInfoTile(
               icon: Icons.signal_cellular_alt,
